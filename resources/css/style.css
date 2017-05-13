@@ -1,0 +1,114 @@
+.labelClass {
+    white-space: nowrap;
+    font-weight: normal;
+    color: black;
+    letter-spacing: 1pt;
+    word-spacing: 2pt;
+    font-size: 67%;
+    text-align: left;
+    font-family: verdana, sans-serif;
+    line-height: 1;
+    margin: 0px;
+    padding: 0px;
+    opacity: 0.5;
+}
+
+.leaflet-control-config-status {
+    margin-top: 20px;
+}
+
+.leaflet-control-config-dropdown {
+    padding: 5px 20px;
+    margin: 7px 0;
+    margin-bottom: 20px;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.leaflet-control-config-dropdown:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.leaflet-control-config-input {
+    padding: 5px 20px;
+    margin: 7px 0;
+    margin-bottom: 20px;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.leaflet-control-config {
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+}
+
+.leaflet-control-config-submit {
+    width: 50%;
+    background-color: white;
+    padding: 8px 20px;
+    margin-top: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid #CCCCCC;
+    border-radius: 5px;
+    float: right;
+}
+
+.leaflet-control-config-submit:hover {
+    background-color: #F4F4F4;
+}
+
+.leaflet-control-config-submit:active {
+    border-style: inset;
+    border-color: #CCCCCC;
+}
+
+.leaflet-control-config-submit:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.leaflet-control-config-submit:disabled:hover {
+    background-color: white;
+}
+
+
+/* From here: checkbox styling */
+
+.leaflet-control-config-checkbox {
+    display: none;
+}
+
+.leaflet-control-config-checkbox+label {
+    font-size: 12.5px;
+    font-style: italic;
+    font-weight: normal;
+}
+
+.leaflet-control-config-checkbox+label:before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin-right: 8px;
+    background-color: #fff;
+    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, .3);
+    border-radius: 5px;
+}
+
+.leaflet-control-config-checkbox:checked+label:before {
+    content: "\2714";
+    color: white;
+    background-color: #e6e6e6;
+    text-align: center;
+    line-height: 18px;
+    text-shadow: 0px 0px 1px #eee;
+}
