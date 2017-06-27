@@ -410,30 +410,36 @@ $(document).ready(function() {
 
             resourceId = getId(val.res, requiredData);
 
-            dataAjxQuery = $.ajax({ // performs an SQL query
+            if(resourceId) {   // checking if the variable resourceId is undefined
+                               // before performing the AJAX request.
 
-              url: resUrl,
-              async: false,
-              cache: true,
-              dataType: 'jsonp',
-              indx: ind,
+              dataAjxQuery = $.ajax({ // performs an SQL query
 
-              data: {
-                "sql": prepareSqlStatement(resourceId, retrAll)
-              },
+                url: resUrl,
+                async: false,
+                cache: true,
+                dataType: 'jsonp',
+                indx: ind,
 
-            }); // $.ajax
+                data: {
+                  "sql": prepareSqlStatement(resourceId, retrAll)
+                },
 
-            dataAjxQuery.done(function(data) {
+              }); // $.ajax
 
-              var index = this.indx;
+              dataAjxQuery.done(function(data) {
 
-              fullData[index][requiredData] = data.result.records;
-            });
+                var index = this.indx;
+
+                fullData[index][requiredData] = data.result.records;
+              });
+
+            } // if (resourceId)
 
           } // if
 
         } // try
+
         catch (err) {
 
           console.log("- Error reading data -", err.message);
