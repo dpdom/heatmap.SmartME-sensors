@@ -666,6 +666,13 @@ $(document).ready(function() {
         // results!)
       });
 
+    }).fail(function () { // If data retrieval is not successful,
+                          // the submit button is enabled again.
+
+      subBtn.disabled = false; // submit button is now enabled
+      senSel.disabled = false;
+      status.innerHTML = 'Status: connection error - retry';
+
     }); // $.when.apply
 
   } // startIt function
