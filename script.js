@@ -274,80 +274,84 @@ $(document).ready(function() {
 
       if (datasets[i]) {
 
-        try {
+        dataset = datasets[i];
+        resourceId = getId(dataset.resources, requiredData);
 
-          dataset = datasets[i];
+        if (resourceId) {
 
-          resourceId = getId(dataset.resources, requiredData);
+          try {
 
-          retrievedData = $.ajax({
+            retrievedData = $.ajax({
 
-            url: 'http://smartme-data.unime.it/api/action/datastore_search',
-            async: false,
-            cache: true,
-            dataType: 'jsonp',
+              url: 'http://smartme-data.unime.it/api/action/datastore_search',
+              async: false,
+              cache: true,
+              dataType: 'jsonp',
 
-            data: {
-              resource_id: resourceId,
-              limit: 1,
-              sort: "Date desc"
-            }
+              data: {
+                resource_id: resourceId,
+                limit: 1,
+                sort: "Date desc"
+              }
 
-          }); // $.ajax
+            }); // $.ajax
 
-          retrievedData.done(function(data) {
+            retrievedData.done(function(data) {
 
-            if (data.result.records[0]) {
+              if (data.result.records[0]) {
 
-              // Preparing the filter for inactive sensors..
-              var sampleTimestamp = moment.tz(data.result.records[0].Date, moment.ISO_8601, true, timeZone);
-              var currentDate = moment.utc();
-              var printOrNot = sampleTimestamp.isBetween(currentDate.clone().subtract(sampleFilter, 'minutes'), currentDate.clone().add(sampleFilter, 'minutes'));
+                // Preparing the filter for inactive sensors..
+                var sampleTimestamp = moment.tz(data.result.records[0].Date, moment.ISO_8601, true, timeZone);
+                var currentDate = moment.utc();
+                var printOrNot = sampleTimestamp.isBetween(currentDate.clone().subtract(sampleFilter, 'minutes'), currentDate.clone().add(sampleFilter, 'minutes'));
 
-              var textIcon;
-              var marker;
+                var textIcon;
+                var marker;
 
-              var lat = data.result.records[0].Latitude;
-              var long = data.result.records[0].Longitude;
-              var value = parseInt(data.result.records[0][capitalizeFirstLetter(requiredData)]);
+                var lat = data.result.records[0].Latitude;
+                var long = data.result.records[0].Longitude;
+                var value = parseInt(data.result.records[0][capitalizeFirstLetter(requiredData)]);
 
-              // A lightweight icon for markers that uses a simple <div> element
-              // instead of an image.
-              textIcon = L.divIcon({
+                // A lightweight icon for markers that uses a simple <div> element
+                // instead of an image.
+                textIcon = L.divIcon({
 
-                className: "labelClass",
-                html: value
-              });
+                  className: "labelClass",
+                  html: value
+                });
 
-              // Inactive sensors are 'n/a'
-              if (!printOrNot) textIcon.options.html = 'n/a';
+                // Inactive sensors are 'n/a'
+                if (!printOrNot) textIcon.options.html = 'n/a';
 
-              marker = L.marker([lat, long], {
+                marker = L.marker([lat, long], {
 
-                title: requiredData,
-                icon: textIcon
-              });
+                  title: requiredData,
+                  icon: textIcon
+                });
 
-              markersLayer.addLayer(marker);
+                markersLayer.addLayer(marker);
 
-              // Building the heatmap only for coherent data (old samples will not be
-              // displayed)..
-              if (printOrNot) heatmapLayer.addData({
-                lat: lat,
-                lng: long,
-                count: value
-              });
+                // Building the heatmap only for coherent data (old samples will not be
+                // displayed)..
+                if (printOrNot) heatmapLayer.addData({
 
-            } // if
+                  lat: lat,
+                  lng: long,
+                  count: value
+                });
 
-          }); // retrievedData.done
+              } // if
 
-        } // try
+            }); // retrievedData.done
 
-        catch (err) {
+          } // try
 
-          console.log("- Error reading data -", err.message);
-        }
+          catch (err) {
+
+            console.log("- Error reading data -", err.message);
+          }
+
+        } // if (resourceId)
 
       } // if
 
