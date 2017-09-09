@@ -179,7 +179,7 @@ $(document).ready(function() {
         var lat;
         var long;
 
-        if (value.num_resources > 0 && value.organization.title == ckanOrganization && (notWorkingBoards.indexOf(value.notes) < 0)) {
+        if (value.num_resources > 0 && value.organization && value.organization.title == ckanOrganization && value.notes && (notWorkingBoards.indexOf(value.notes) < 0)) {
 
           datasets[index] = {
 
